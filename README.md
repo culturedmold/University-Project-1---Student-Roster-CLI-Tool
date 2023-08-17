@@ -1,7 +1,9 @@
-# Student-Roster-Command-Line-Tool--University-Project
+# Student-Roster-Command-Line-Tool
 
 ### About:
 This project is a fairly straightforward exercise in pointers, parsing, and OOP concepts. The program takes an input string, parses the data, and creates an array of Student objects and outputs the data to console. Various methods are implemented to handle incorrectly formatted data (such as e-mail addresses). 
+
+This was the first formal project presented in my Computer Science bachelors degree, and was a great introduction to OOP, pointers, arrays, and basic data structures/algorithms.
 
 ### How I'd Improve:
 The program has very limited utility due to the following external requirements:
