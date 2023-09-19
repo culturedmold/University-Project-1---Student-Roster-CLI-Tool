@@ -1,5 +1,4 @@
 # Student-Roster-Command-Line-Tool
-C. Tyler Hampton
 
 ## Overview:
 This project is a fairly straightforward exercise in pointers, parsing, and OOP concepts. The program takes an input string, parses the data, and creates an array of Student objects and outputs the data to console. Various methods are implemented to handle incorrectly formatted data (such as e-mail addresses). 
