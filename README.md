@@ -15,3 +15,7 @@ To solve problem 1, I would use a vector of Student objects. This would allow th
 To solve problem 2, I would use a lightweight local database (such as sqlite3) to store the data. This would eliminate the cumbersome step of having to re-enter all data each time the application is opened. Using a fixed-size array was an external requirement that I had to follow, but a vector would be ideal.
 
 The application was intentionally lightweight. However, a simple GUI could significantly improve the tool's usability for an average user. 
+
+## Evidence of Functionality
+<img width="1117" alt="Evidence of Functionality" src="https://github.com/culturedmold/Student-Roster-Command-Line-Tool/assets/122142361/2d59a1ac-e59b-4fdb-852c-f5549c1088c7">
+
