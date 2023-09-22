@@ -12,6 +12,6 @@ The program has very limited utility due to the following external requirements:
 
 To solve problem 1, I would use a vector of Student objects. This would allow the user to enter as many or as little "students" into the parsing function and would resize as necessary, greatly increasing the utility of the program. 
 
-To solve problem 2, I would use a lightweight local database (such as sqlite3) to store the data. This would eliminate the cumbersome step of having to re-enter all data each time the application is opened. 
+To solve problem 2, I would use a lightweight local database (such as sqlite3) to store the data. This would eliminate the cumbersome step of having to re-enter all data each time the application is opened. Using a fixed-size array was an external requirement that I had to follow, but a vector would be ideal.
 
 The application was intentionally lightweight. However, a simple GUI could significantly improve the tool's usability for an average user. 
