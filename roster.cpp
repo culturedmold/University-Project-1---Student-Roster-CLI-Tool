@@ -6,7 +6,7 @@
 //
 
 #include "roster.hpp"
-#include "degree.h"
+#include "degree.hpp"
 #include "student.hpp"
 #include <iostream>
 #include <vector>
@@ -21,18 +21,14 @@ Roster::Roster() {
 // DESTRUCTOR
 Roster::~Roster() {
     cout << "Calling Destructor...";
-
-    for(int i = 0; i < numStudents; i++) {
-        delete studentRosterArray[i];
-        studentRosterArray[i] = nullptr;
-    }
 }
 
 void Roster::add(string studentID, string firstName, string lastName, int age, int courseDaysIn1, int courseDaysIn2, int courseDaysIn3, string email, DegreeProgram degreeProgram) {
     
     int daysInCourseArray[3] = { courseDaysIn1, courseDaysIn2, courseDaysIn3 };
+    Student temp = Student(studentID, firstName, lastName, age, daysInCourseArray, email, degreeProgram);
     
-    studentRosterArray[index] = new Student(studentID, firstName, lastName, age, daysInCourseArray, email, degreeProgram);
+    studentRosterVector.insert(studentRosterVector.end(), temp);
 }
 
 // Add student to roster
@@ -84,8 +80,6 @@ void Roster::parse(string data) {
         degreeProgram = SECURITY;
     }
     
-    index++;
-    
     add(studentID, firstName, lastName, age, daysInCourse1, daysInCourse2, daysInCourse3, email, degreeProgram);
     
 }
@@ -93,11 +87,8 @@ void Roster::parse(string data) {
 // Prints all
 void Roster::printAll() {
     cout << "All Roster Information:" << endl;
-    for(int i = 0; i < numStudents; i++) {
-        if(studentRosterArray[i] == nullptr) {
-            continue;
-        }
-        studentRosterArray[i]->printStudentData();
+    for(int i = 0; i < studentRosterVector.size(); i++) {
+        studentRosterVector[i].printStudentData();
         cout << endl;
     }
 }
@@ -105,9 +96,9 @@ void Roster::printAll() {
 // Prints avg number of days in a course by studentID
 void Roster::printAverageDaysInCourse(string studentID) {
     int sumDaysIn = 0;
-    for(int i = 0; i < numStudents; i++) {
-        if(studentRosterArray[i]->getID() == studentID) {
-            int* tempArray = studentRosterArray[i]->getDaysInCourse();
+    for(int i = 0; i < studentRosterVector.size(); i++) {
+        if(studentRosterVector[i].getID() == studentID) {
+            int* tempArray = studentRosterVector[i].getDaysInCourse();
             for(int j = 0; j < 3; j++) {
                 sumDaysIn += tempArray[j];
             }
@@ -119,23 +110,20 @@ void Roster::printAverageDaysInCourse(string studentID) {
 }
 
 void Roster::printAllAvgDaysInCourse() {
-    for(int i = 0; i < numStudents; i++) {
-        printAverageDaysInCourse(studentRosterArray[i]->getID());
+    for(int i = 0; i < studentRosterVector.size(); i++) {
+        printAverageDaysInCourse(studentRosterVector[i].getID());
     }
 }
 
 string Roster::getStudentID(int i) {
-    return studentRosterArray[i]->getID();
+    return studentRosterVector[i].getID();
 }
 
 // Removes student by studentID
 void Roster::removeStudent(string studentID) {
-    for(int i = 0; i < numStudents; i++) {
-        if(studentRosterArray[i] == nullptr) {
-            continue;
-        }
-        if(studentRosterArray[i]->getID() == studentID) {
-            studentRosterArray[i] = nullptr;
+    for(int i = 0; i < studentRosterVector.size(); i++) {
+        if(studentRosterVector[i].getID() == studentID) {
+            studentRosterVector.erase(studentRosterVector.begin() + i);
             cout << "Removed student " << studentID << endl;
             return;
         }
@@ -146,16 +134,13 @@ void Roster::removeStudent(string studentID) {
 // Prints all invalid email addresses
 void Roster::printInvalidEmails() {
     cout << "Students with invalid email addresses:" << endl;
-    for(int i = 0; i < numStudents; i++) {
-        if(studentRosterArray[i] == nullptr) {
-            continue;
-        }
-        string tempEmail = studentRosterArray[i]->getEmail();
+    for(int i = 0; i < studentRosterVector.size(); i++) {
+        string tempEmail = studentRosterVector[i].getEmail();
         if(tempEmail.find(".") == string::npos || tempEmail.find(" ") != string::npos || tempEmail.find("@") == string::npos) {
-            cout << "ID: " << studentRosterArray[i]->getID() << "\t";
-            cout << "First Name: " << studentRosterArray[i]->getFirstName() << "\t";
-            cout << "Last Name: " << studentRosterArray[i]->getLastName() << "\t";
-            cout << "Email: " << studentRosterArray[i]->getEmail() << "\t";
+            cout << "ID: " << studentRosterVector[i].getID() << "\t";
+            cout << "First Name: " << studentRosterVector[i].getFirstName() << "\t";
+            cout << "Last Name: " << studentRosterVector[i].getLastName() << "\t";
+            cout << "Email: " << studentRosterVector[i].getEmail() << "\t";
             cout << endl;
         }
     }
@@ -164,17 +149,14 @@ void Roster::printInvalidEmails() {
 // Prints student by degree program
 void Roster::printStudentByProgram(DegreeProgram degreeProgram) {
     cout << "Students by program: " << degreeTypes[degreeProgram] << endl;
-    for(int i = 0; i < numStudents; i++) {
-        if(studentRosterArray[i] == nullptr) {
-            continue;
-        }
-            string tempProgram = studentRosterArray[i]->getProgram();
+    for(int i = 0; i < studentRosterVector.size(); i++) {
+        string tempProgram = studentRosterVector[i].getProgram();
         if(tempProgram == degreeTypes[degreeProgram]) {
-            cout << "ID: " << studentRosterArray[i]->getID() << "\t";
-            cout << "First Name: " << studentRosterArray[i]->getFirstName() << "\t";
-            cout << "Last Name: " << studentRosterArray[i]->getLastName() << "\t";
-            cout << "Age: " << studentRosterArray[i]->getAge() << "\t";
-            cout << "Email: " << studentRosterArray[i]->getEmail() << "\t";
+            cout << "ID: " << studentRosterVector[i].getID() << "\t";
+            cout << "First Name: " << studentRosterVector[i].getFirstName() << "\t";
+            cout << "Last Name: " << studentRosterVector[i].getLastName() << "\t";
+            cout << "Age: " << studentRosterVector[i].getAge() << "\t";
+            cout << "Email: " << studentRosterVector[i].getEmail() << "\t";
             cout << endl;
         }
     }

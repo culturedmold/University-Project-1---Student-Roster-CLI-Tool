@@ -9,7 +9,7 @@
 #define student_hpp
 
 #include <iostream>
-#include "degree.h"
+#include "degree.hpp"
 #include <string>
 
 using namespace std;

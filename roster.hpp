@@ -7,25 +7,24 @@
 
 #ifndef roster_hpp
 #define roster_hpp
-#include "degree.h"
+#include "degree.hpp"
 #include "student.hpp"
 
 #include <stdio.h>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 class Roster {
     
 public:
-    const static int numStudents = 5;
-    int index = -1; // Help us keep track of the index where we need to place our new student via parse and add methods
     
     // CONSTRUCTOR
     Roster();
     
     // Array of pointers
-    Student* studentRosterArray[5];
+    std::vector<Student> studentRosterVector;
     
     // DESTRUCTOR
     ~Roster();

@@ -7,8 +7,9 @@
 
 #include <iostream>
 #include "student.hpp"
-#include "degree.h"
+#include "degree.hpp"
 #include "roster.hpp"
+#include <vector>
 
 int main(void) {
     // Application title
@@ -21,7 +22,7 @@ int main(void) {
     cout << endl;
     
     // student roster data
-    string const studentData[] = {
+    std::vector<std::string> studentData = {
         "A1,John,Smith,John1989@gm ail.com,20,30,35,40,SECURITY",
         "A2,Suzan,Erickson,Erickson_1990@gmailcom,19,50,30,40,NETWORK",
         "A3,Jack,Napoli,The_lawyer99yahoo.com,19,20,40,33,SOFTWARE",
@@ -34,7 +35,7 @@ int main(void) {
     
     // loop through newRoster, parse data
     // parse function calls add function, which constructs a student object for each element of newRoster array
-    for(int i = 0; i < Roster::numStudents; i++) {
+    for(int i = 0; i < studentData.size(); i++) {
         classRoster.parse(studentData[i]);
     }
     
@@ -46,12 +47,8 @@ int main(void) {
     classRoster.printInvalidEmails();
     cout << endl;
     
-//    // prints average days in course by student ID
-//    newRoster->printAllAvgDaysInCourse();
-//    cout << endl;
-    
     // loop to print avg days in course for student, using a getter to retrieve studentID
-    for(int i = 0; i < Roster::numStudents; i++) {
+    for(int i = 0; i < classRoster.studentRosterVector.size(); i++) {
         classRoster.printAverageDaysInCourse(classRoster.getStudentID(i));
     }
     cout << endl;
@@ -67,7 +64,7 @@ int main(void) {
     classRoster.printAll();
     cout << endl;
     
-    // removes a student... will return error message to user since student "A3" has already been deleted
+    // removes a student... will return message to indicate that student "A3" has already been deleted
     classRoster.removeStudent("A3");
     cout << endl;
     
